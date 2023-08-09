@@ -1,34 +1,42 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import "./App.css";
+import React, { useEffect, useState } from "react";
+import { MdModeNight } from "react-icons/md";
+import { BiSolidSun } from "react-icons/bi";
 
-function App() {
-  const [count, setCount] = useState(0);
+const App = () => {
+  const [input, setInput] = useState("");
+  const [theme, setTheme] = useState(getInitialTheme);
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  function getInitialTheme() {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme ? savedTheme : "light";
+  }
+
+  const handleThemeToggle = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+      <div className="{`calculator ${theme}`}">
+        <div className="heading">
+          <p>Calculator</p>
+          <div className="thm-btn">
+            <button className="theme-toggle" onClick={handleThemeToggle}>
+              {theme === "light" ? (
+                <MdModeNight className="night-btn" />
+              ) : (
+                <BiSolidSun className="light-btn" />
+              )}
+            </button>
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   );
-}
+};
 
 export default App;

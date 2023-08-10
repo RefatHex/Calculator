@@ -73,7 +73,15 @@ button {
   color: white;
   font-weight: bold;
 }
+button:hover {
+  background: #ffffff;
+  color: #000000;
+  border-radius: 6px;
+}
 
+button:active {
+  transform: scale(0.9);
+}
 .operator-btn {
   width: 40px;
   height: 40px;

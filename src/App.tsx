@@ -64,7 +64,7 @@ const App = () => {
       <div className={`calculator ${theme}`}>
         <div className="heading">
           <p>Calculator</p>
-          <div className="thm-btn">
+          <div className=" thm-btn">
             <button className="theme-toggle" onClick={handleThemeToggle}>
               {theme === "light" ? (
                 <MdModeNight className="night-btn" />
@@ -74,14 +74,14 @@ const App = () => {
             </button>
           </div>
         </div>
-        <div onClick={handleClear} className="display">
-          {input}
-        </div>
+        <div className="display">{input}</div>
         <div className="buttons">
-          <button onClick={handleBackspace} className="clear">
+          <button onClick={handleClear} className="clear">
             AC
           </button>
-          <button className="backspace">←</button>
+          <button onClick={handleBackspace} className="backspace">
+            ←
+          </button>
           <button onClick={() => handleButtonClick("%")}>%</button>
           <button
             className="operator-btn"

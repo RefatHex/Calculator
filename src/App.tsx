@@ -4,16 +4,14 @@ import { BiSolidSun } from "react-icons/bi";
 import { HiMiniCodeBracket } from "react-icons/hi2";
 import { RxCross2 } from "react-icons/rx";
 
-interface HistoryItem {
+interface Props {
   inputs: string;
   result: string;
 }
-const App = ({ inputs, result }: HistoryItem) => {
+const App = () => {
   const [input, setInput] = useState<string>("");
-  const [history, setHistory] = useState<HistoryItem[]>([]);
-  const [selectedHistory, setSelectedHistory] = useState<HistoryItem | null>(
-    null
-  );
+  const [history, setHistory] = useState<Props[]>([]);
+  const [selectedHistory, setSelectedHistory] = useState<Props | null>(null);
   const [theme, setTheme] = useState<string>(getInitialTheme());
   const [historyModel, setHistoryModel] = useState<boolean>(false);
 
@@ -43,7 +41,7 @@ const App = ({ inputs, result }: HistoryItem) => {
   const handleCalculate = (): void => {
     try {
       const result = eval(input);
-      setHistory([...history, { inputs, result: result.toString() }]);
+      setHistory([...history, { inputs: input, result: result.toString() }]);
       setInput(result.toString());
       setSelectedHistory(null); // Reset selectedHistory after calculation.
     } catch (error) {
@@ -56,7 +54,7 @@ const App = ({ inputs, result }: HistoryItem) => {
     setInput(input.slice(0, -1));
   };
 
-  const handleHistoryItemClick = (item: HistoryItem): void => {
+  const handleHistoryItemClick = (item: Props): void => {
     setInput(item.inputs);
     setSelectedHistory(item);
   };
